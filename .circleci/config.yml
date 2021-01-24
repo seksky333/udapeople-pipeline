@@ -480,7 +480,7 @@ jobs:
             STACKS="production"
             if [[ "${OldWorkflowID}" != "${CIRCLE_WORKFLOW_ID:0:7}" ]]
             then
-              aws s3 rm s3://udapeople-$OldPipelineID --recursive
+              aws s3 rm s3://udapeople-${OldWorkflowID} --recursive
               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldPipelineID}"
               aws cloudformation delete-stack --stack-name "udapeople-frontend-$OldPipelineID"
             fi
