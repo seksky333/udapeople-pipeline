@@ -1,0 +1,33 @@
+---
+- name: show remote environment
+  shell: env
+
+- name: "copy backend build"
+  become: yes
+  synchronize:
+    src: ../../backend/dist
+    dest: /home/ubuntu/udapeople_backend
+    recursive: true
+
+- name: "copy backend dependencies"
+  become: yes
+  synchronize:
+    src: ../../backend/node_modules
+    dest: /home/ubuntu/udapeople_backend
+    recursive: true
+
+- name: "start server"
+  shell: |
+    env
+    pm2 start /home/ubuntu/udapeople_backend/dist/main.js -f
+  environment:
+    ENVIRONMENT: production
+    TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
+    TYPEORM_MIGRATIONS_DIR: "./migrations"
+    TYPEORM_MIGRATIONS: "./migrations/*.js"
+    TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+    TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
+    TYPEORM_PORT: 5432
+    TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME')}}"
+    TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD')}}"
+    TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
