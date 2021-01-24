@@ -447,7 +447,7 @@ jobs:
             --template-file cloudfront.yml \
             --stack-name production-udapeople-frontend \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
-            aws ssm put-parameter --name "Udapeople-WorkflowID" --type "String" --value "${CIRCLE_WORKFLOW_ID:0:7}"
+            aws ssm put-parameter --overwrite --name "Udapeople-WorkflowID" --type "String" --value "${CIRCLE_WORKFLOW_ID:0:7}"
       - persist_to_workspace:
           root: ~/
           paths:
