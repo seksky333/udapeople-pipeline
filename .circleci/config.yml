@@ -473,7 +473,10 @@ jobs:
       - run:
           name: Get old stack workflow id and remove old stacks and files
           command: |
+            pwd
+            ls
             OldWorkflowID=$(cat ~/deployment_id.txt)
+            echo ${OldWorkflowID}
             STACKS="production"
             if [[ "${OldWorkflowID}" != "${CIRCLE_WORKFLOW_ID:0:7}" ]]
             then
