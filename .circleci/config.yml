@@ -445,7 +445,7 @@ jobs:
             cd .circleci/files
             aws cloudformation deploy \
             --template-file cloudfront.yml \
-            --stack-name production-udapeople-frontend \
+            --stack-name production \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
             aws ssm put-parameter --overwrite --name "Udapeople-WorkflowID" --type "String" --value "${CIRCLE_WORKFLOW_ID:0:7}"
       - persist_to_workspace:
